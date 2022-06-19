@@ -24,7 +24,7 @@
   overflow-y: hidden;
 }
 .list-wrapper {
-  padding-right: 10px;
+  padding: 10px;
 }
 .list-wrapper .head {
   font-size: 18px;

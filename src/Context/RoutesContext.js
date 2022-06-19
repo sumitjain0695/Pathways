@@ -1,6 +1,7 @@
 import { message } from "antd";
 import { createContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { DEFAULT_DATA } from "../Data/DefaultData";
 import { validateUploadData } from "../Utilities/utils";
 
 const RoutesContext = createContext(null);
@@ -11,7 +12,7 @@ const RoutesProvider = ({ children }) => {
     const routeData = JSON.parse(localStorage.getItem("routes"));
     if (!validateUploadData(routeData)) {
       localStorage.removeItem("routes");
-      return [];
+      return DEFAULT_DATA;
     }
     return JSON.parse(localStorage.getItem("routes"));
   }
@@ -30,7 +31,7 @@ const RoutesProvider = ({ children }) => {
       reader.onload = (e) => {
         let uploadedData = JSON.parse(e.target.result);
         if (!validateUploadData(uploadedData)) {
-          uploadedData = [];
+          uploadedData = DEFAULT_DATA;
           message.error("Uploaded data is Invalid");
           return false;
         }
@@ -39,7 +40,7 @@ const RoutesProvider = ({ children }) => {
         uploadedData.forEach((route, index) => {
           route.id = uuidv4();
         });
-        
+
         const newRoutes = [...routes, ...uploadedData];
         localStorage.setItem("routes", JSON.stringify(newRoutes));
         message.success("Batch Added");
