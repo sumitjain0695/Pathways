@@ -14,7 +14,7 @@ import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
 import { StaleWhileRevalidate } from "workbox-strategies";
 
-let self
+declare const self: ServiceWorkerGlobalScope;
 
 clientsClaim();
 
@@ -30,7 +30,7 @@ precacheAndRoute(self.__WB_MANIFEST);
 const fileExtensionRegexp = new RegExp("/[^/?]+\\.[^/]+$");
 registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
-  ({ request, url }) => {
+  ({ request, url }: { request: Request; url: URL }) => {
     // If this isn't a navigation, skip.
     if (request.mode !== "navigate") {
       return false;
