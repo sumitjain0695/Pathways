@@ -16,13 +16,17 @@ const AppContent: React.FC<Props> = ({ toggleForm }) => {
 
   return (
     <Content>
-      <div className="contentBody">
+      <div className="content-body">
         <div className="list-wrapper">
           <div className="head">Route List</div>
           <RouteList toggleForm={toggleForm} />
         </div>
+        <MyMapComponent routes={routes} />
       </div>
-      <MyMapComponent routes={routes} />
+      <div className='map-content'>
+      
+      </div>
+      
     </Content>
   );
 };
